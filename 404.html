@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Redirecting...</title>
+    <script>
+        var currentPath = window.location.pathname;
+
+        var newBaseUrl = "https://a2aproject.github.io/A2A";
+        
+        var targetPath = "";
+        
+        var pathSegments = currentPath.split('/');
+
+        if (pathSegments.length > 1 && pathSegments[1] === 'A2A') {
+            targetPath = '/' + pathSegments.slice(2).join('/');
+            if (targetPath === '//') { // Handle cases like /A2A/ resulting in //
+                targetPath = '/';
+            }
+        } else {
+            // For all other paths (e.g., /foo.html, /), just use the path as is.
+            targetPath = currentPath;
+        }
+
+        // Construct the full new URL
+        var newUrl = newBaseUrl + targetPath + window.location.search + window.location.hash;
+
+        // Perform the redirect
+        window.location.replace(newUrl);
+    </script>
+</head>
+<body>
+    <h1>Redirecting to the new site...</h1>
+    <p>If you are not redirected automatically, please <a id="redirectLink">click here</a>.</p>
+    <script>
+        document.getElementById('redirectLink').href = newUrl;
+    </script>
+</body>
+</html>
